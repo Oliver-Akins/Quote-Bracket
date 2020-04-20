@@ -1,5 +1,6 @@
 # User ignored files
 config.json
+src/config.ts
 
 
 node_modules
