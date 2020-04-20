@@ -12,7 +12,7 @@ export const WRITE_MSG_ID = (new_id: string) => {
 
 
 export const LOAD_USED_QUOTES = (): string[] => {
-	return JSON.parse(fs.readFileSync(`./${DB_NAME}`, `utf`));
+	return JSON.parse(fs.readFileSync(`./${DB_NAME}`, `utf8`));
 };
 
 
