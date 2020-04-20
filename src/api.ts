@@ -7,7 +7,7 @@ import {
 	DISCORD_OAUTH_TOKEN,
 	DISCORD_WEBHOOK_USERNAME
 } from "./config";
-import { LOAD_USED_QUOTES } from "./database";
+import { LOAD_USED_QUOTES, WRITE_USED_QUOTES } from "./database";
 
 
 
@@ -23,6 +23,7 @@ export const GET_QUOTE = async (count = 1): Promise<string> => {
 			quote = quotes[Math.floor(Math.random() * quotes.length)];
 		};
 		used_quotes.push(quote);
+		WRITE_USED_QUOTES(used_quotes);
 
 		return quote
 	})
