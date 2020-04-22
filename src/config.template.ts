@@ -11,6 +11,9 @@ export const DISCORD_WEBHOOK: string = ``;
 // default name from within Discord
 export const DISCORD_WEBHOOK_USERNAME: string|undefined = undefined;
 
+// The Discord webhook that the results of each quote
+export const RESULT_WEBHOOK: string = ``;
+
 // The file names for the database operations
 export const DB_NAME: string = `used_quotes.json`
 export const MSG_ID_FILE: string = `msg_id`

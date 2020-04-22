@@ -1,5 +1,5 @@
 import { LOAD_MSG_ID, WRITE_MSG_ID } from "./database";
-import { GET_MESSAGE, GET_QUOTE, WEBHOOK_PUSH } from "./api";
+import { GET_MESSAGE, GET_QUOTE, POST_WINNING_QUOTE, POST_NEW_BRACKET } from "./api";
 import { EMOJI_A_ID, EMOJI_B_ID, EMOJI_B_NAME, EMOJI_A_NAME } from "./config";
 
 const MAIN = async () => {
@@ -47,6 +47,10 @@ const MAIN = async () => {
 	winning_emoji = winning_emoji!;
 
 
+	// Push the winning quote to the result webhook
+	await POST_WINNING_QUOTE(msg, winning_emoji);
+
+
 	var new_quote_a: string, new_quote_b: string;
 	// Get new quotes
 	switch (winning_emoji) {
@@ -91,7 +95,7 @@ const MAIN = async () => {
 		]
 	}
 	// Post to webhook and store new message ID
-	let new_msg_id = await WEBHOOK_PUSH(embed);
+	let new_msg_id = await POST_NEW_BRACKET(embed);
 
 	WRITE_MSG_ID(new_msg_id);
 };
