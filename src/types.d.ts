@@ -1,3 +1,4 @@
+type bracket_result = reaction|"TIE"|"NO_DATA";
 type snowflake = number;
 
 interface emoji {
