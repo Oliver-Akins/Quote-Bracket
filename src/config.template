@@ -15,15 +15,16 @@ export const DISCORD_WEBHOOK_USERNAME: string|undefined = undefined;
 export const RESULT_WEBHOOK: string = ``;
 
 // The file names for the database operations
-export const DB_NAME: string = `used_quotes.json`
-export const MSG_ID_FILE: string = `msg_id`
+export const DB_NAME: string = `used_quotes.json`;
+export const MSG_ID_FILE: string = `msg_id`;
 
 // The twitch.center URL for the quote list
 export const QUOTE_URL: string = ``;
 
 
-// The base API endpoint for Discord
-export const DISCORD_API_BASE: string = `https://discordapp.com/api/v6`
+// The base endpoints for Discord
+export const DISCORD_API_BASE: string = `https://discordapp.com/api/v6`;
+export const DISCORD_CDN_BASE: string = `https://cdn.discordapp.com`;
 
 
 // The details for the Discord emoji
