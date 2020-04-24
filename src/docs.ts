@@ -36,8 +36,8 @@ export const ADD_TO_DOCS = (msg: msg_meta, won: bracket_result) => {
 	${addition_indicator}`;
 
 	let docs: string = fs.readFileSync(`./docs/index.html`, `utf8`);
-	console.log(docs)
+
 	docs = docs.replace(`<!-- BOTTOM -->`, `${docstring_to_add}`);
-	console.log(docs);
+
 	fs.writeFileSync(`./docs/index.html`, `${docs}`);
 }
