@@ -64,7 +64,6 @@ export const GET_MESSAGE = async (id: string): Promise<msg_meta> => {
 
 
 const WEBHOOK_POST = async (webhook: string, username: string, embed: any): Promise<object> => {
-	console.log(2)
 	return await axios.post(
 		`${DISCORD_WEBHOOK}?wait=true`,
 		{
@@ -73,7 +72,6 @@ const WEBHOOK_POST = async (webhook: string, username: string, embed: any): Prom
 		}
 	)
 	.then((response: any) => {
-		console.log(3)
 		return response.data;
 	}).catch((err:any) => {throw err});
 };
@@ -83,40 +81,4 @@ const WEBHOOK_POST = async (webhook: string, username: string, embed: any): Prom
 export const POST_NEW_BRACKET = async (embed: any) => {
 	// @ts-ignore
 	return (await WEBHOOK_POST(DISCORD_WEBHOOK, DISCORD_WEBHOOK_USERNAME, embed)).id
-}
-
-
-export const POST_WINNING_QUOTE = async (ctx: msg_meta, won: reaction|"TIE"|"NO_DATA") => {
-	let result: string;
-	console.log(1)
-	switch (won) {
-		case "NO_DATA":
-		case "TIE":
-			result = won;
-			break;
-		default:
-			result = `<:${won.emoji.name}:${won.emoji.id}>`
-			break;
-	}
-	console.log(4)
-	WEBHOOK_POST(
-		RESULT_WEBHOOK,
-		"Bracket Result",
-		{
-			title: "Bracket Results",
-			description: `Bracket Result: ${result}`,
-			fields: [
-				{
-					name: `Quote A:`,
-					value: ctx.quote_a.value,
-					inline: false
-				},
-				{
-					name: `Quote B:`,
-					value: ctx.quote_b.value,
-					inline: false
-				}
-			]
-		}
-	);
 };
