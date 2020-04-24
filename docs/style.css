@@ -1,0 +1,12 @@
+.center {
+	text-align: center;
+}
+
+.emoji {
+	width: 25px;
+	vertical-align: inherit;
+}
+
+.quote {
+	vertical-align: middle;
+}
