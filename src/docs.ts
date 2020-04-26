@@ -1,4 +1,4 @@
-import { DISCORD_CDN_BASE } from "./config";
+import { DISCORD_CDN_BASE, EMOJI_A_ID, EMOJI_B_ID } from "./config";
 import * as fs from "fs";
 
 
@@ -22,13 +22,13 @@ export const ADD_TO_DOCS = (msg: msg_meta, won: bracket_result) => {
 		Winner: ${result}
 		<br><br>
 		<span class="quote">
-			<img src="${DISCORD_CDN_BASE}/emojis/701289851923988540.png" class="emoji">
+			<img src="${DISCORD_CDN_BASE}/emojis/${EMOJI_A_ID}.png" class="emoji">
 			<br>
 			${msg.quote_a.value.split(split_str, 2)[1].slice(0, -2)}
 		</span>
 		<br><br>
 		<span class="quote">
-			<img src="${DISCORD_CDN_BASE}/emojis/701289852146286633.png" class="emoji">
+			<img src="${DISCORD_CDN_BASE}/emojis/${EMOJI_B_ID}.png" class="emoji">
 			<br>
 			${msg.quote_b.value.split(split_str, 2)[1].slice(0, -2)}
 		</span>
