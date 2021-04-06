@@ -10,3 +10,12 @@
 .quote {
 	vertical-align: middle;
 }
+
+.container {
+	flex-direction: column-reverse;
+	display: flex;
+}
+
+.container hr {
+	width: 100%;
+}
