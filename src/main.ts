@@ -82,7 +82,7 @@ const MAIN = async () => {
 		title: `Quote Bracketeering`,
 		description: `Vote for your favourite quote by reacting to this message with the proper emoji!\n\n\n**Note:** If both quotes end in the same number of votes they will __**BOTH**__ be eliminated.`,
 		color: 43520,
-		url: `https://tyler.akins.me/Quote-Bracket/`,
+		url: `https://oliver.akins.me/Quote-Bracket/`,
 		fields: [
 			{
 				name: `Quote A:`,
