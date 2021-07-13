@@ -1,7 +1,6 @@
 # User ignored files
-config.json
-src/config.ts
+config.toml
 
-
+# Node files
 node_modules
 dist
