@@ -2,21 +2,40 @@
   "name": "quote-bracket",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/main.js",
   "directories": {
     "doc": "docs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rm -r dist; tsc"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Tyler-A/Quote-Bracket.git"
+    "url": "git+https://github.com/Oliver-Akins/Quote-Bracket.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Tyler-A/Quote-Bracket/issues"
+    "url": "https://github.com/Oliver-Akins/Quote-Bracket/issues"
   },
-  "homepage": "https://github.com/Tyler-A/Quote-Bracket#readme"
+  "homepage": "https://github.com/Oliver-Akins/Quote-Bracket#readme",
+  "dependencies": {
+    "@hapi/boom": "^9.1.3",
+    "@hapi/hapi": "^20.1.5",
+    "@types/hapi__hapi": "^20.0.9",
+    "@types/node": "^16.3.1",
+    "axios": "^0.21.1",
+    "glob": "^7.1.7",
+    "module-alias": "^2.2.2",
+    "path": "^0.12.7",
+    "toml": "^3.0.0",
+    "tweetnacl": "^1.0.3"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.1.4"
+  },
+  "_moduleAliases": {
+    "@": "./dist"
+  }
 }
