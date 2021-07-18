@@ -36,9 +36,6 @@ async function init() {
 
 	const server = new Server({
 		port: config.server.port,
-		debug: {
-			request: [ `error` ]
-		}
 	});
 
 
