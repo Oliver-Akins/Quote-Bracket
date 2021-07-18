@@ -1,0 +1,9 @@
+[Unit]
+Description=Server for voting on the community's favourite quote said by the Resonym crew.
+
+[Service]
+Type=simple
+# WorkingDirectory=
+# ExecStart=
+Restart=always
+RestartSec=5
