@@ -5,6 +5,19 @@ export async function selectQuote(data: any): Promise<object> {
 	let userID = data.member.user.id;
 	let oldVote = db.bracket.users[userID];
 
+
+	// Assert votes are different
+	if (oldVote === vote) {
+		return {
+			type: 4,
+			data: {
+				content: `You're already voting for that quote!`,
+				flags: 1 << 6,
+			}
+		};
+	};
+
+
 	// Set quote to 0 if it hasn't been voted for yet
 	if (!db.bracket.votes[vote]) {
 		db.bracket.votes[vote] = 0;
