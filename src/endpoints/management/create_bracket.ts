@@ -30,7 +30,11 @@ export default {
 			// Calculate the winners from the previous bracket
 			let r = await request.server.inject(`/bracket/winners`);
 			var quotes: string[] = JSON.parse(r.payload).winners;
-			var winner_count = quotes.length;
+
+			// Ensure that the all elimination limit didn't get hit
+			if (quotes.length > Math.floor(config.discord.quote_max / 2)) {
+				quotes = [];
+			};
 
 			// Get any new quotes for the bracket
 			quotes.push(...(await getQuote(config.discord.quote_max - quotes.length)));
@@ -49,7 +53,7 @@ export default {
 				{
 					description: `Note: If **more than ${Math.floor(config.discord.quote_max / 2)}** of the quotes tie, they will all be eliminated, otherwise, the ones that tie will move on to the next bracket.`,
 					fields: quotes.map((quote, i) => { return {
-						name: `${i < winner_count ? '👑 ' : ''}Quote: ${i + 1}`,
+						name: `${i < quotes.length ? '👑 ' : ''}Quote: ${i + 1}`,
 						value: quote,
 					}}),
 				}
@@ -66,7 +70,7 @@ export default {
 								return {
 									label: `Quote ${i + 1}`,
 									value: i,
-									emoji: i < winner_count ? {
+									emoji: i < quotes.length ? {
 										name: `👑`
 									} : null
 								}

@@ -1,4 +1,4 @@
-import { config, db } from "@/main"
+import { db } from "@/main"
 
 export default {
 	method: `GET`, path: `/bracket/winners`,
@@ -14,11 +14,6 @@ export default {
 			} else if (db.bracket.votes[i] === highest) {
 				winners.push(db.bracket.quotes[i]);
 			};
-		};
-
-		// Ensure that the all elimination limit didn't get hit
-		if (winners.length > Math.floor(config.discord.quote_max / 2)) {
-			return { winners: [] };
 		};
 
 		return { winners };
