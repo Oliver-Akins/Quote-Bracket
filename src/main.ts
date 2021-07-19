@@ -25,11 +25,15 @@ if (!fs.existsSync(config.server.db_file)) {
 export var db: database = JSON.parse(fs.readFileSync(config.server.db_file, `utf-8`));
 
 
-process.on(`SIGINT`, () => {
+function saveDB() {
 	console.log(`Saving database`);
 	fs.writeFileSync(config.server.db_file, JSON.stringify(db));
 	process.exit(0);
-});
+};
+
+process.on(`SIGINT`, saveDB);
+process.on(`SIGTERM`, saveDB);
+process.on(`uncaughtException`, saveDB);
 
 
 async function init() {
