@@ -1,6 +1,14 @@
+interface channel_config {
+	password: string;
+	api_base: string;
+	quote_max: number;
+	delete_mode: "no_interactions" | "delete_message";
+	params: { [index: string]: any };
+}
+
 interface config {
 	discord: {
-		quote_max: number;
+		auth_password: string;
 		client_id: string;
 		secret: string;
 		public_key: string;
@@ -10,12 +18,8 @@ interface config {
 	server: {
 		host: string;
 		port: number;
-		db_file: string;
-		quote_history: string;
-		bracket_history: string;
 	};
-	quote: {
-		api_base: string;
-		token: string;
+	guilds: {
+		[index: string]: channel_config;
 	};
 }
