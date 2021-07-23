@@ -1,14 +1,14 @@
-import { readFileSync, writeFileSync } from "fs";
+import { loadUsedQuotes, saveUsedQuotes } from "./data";
 import { config } from "../main";
 import axios from "axios";
 
-export async function getQuote(count = 1) {
+export async function getQuote(gID: string, count = 1) {
 	let r = await axios.get(
-		config.quote.api_base,
-		{ params: { token: config.quote.token } }
+		config.guilds[gID].api_base,
+		{ params: config.guilds[gID].params }
 	);
 	let quoteList = r.data.split(`\n`);
-	let history: string[] = JSON.parse(readFileSync(config.server.quote_history, `utf-8`));
+	let history = await loadUsedQuotes(gID);
 
 	// Populate the quotes list
 	let quotes: string[] = [];
@@ -22,7 +22,7 @@ export async function getQuote(count = 1) {
 
 	history.push(...quotes)
 
-	writeFileSync(config.server.quote_history, JSON.stringify(history));
+	await saveUsedQuotes(gID, history);
 
 	return quotes;
 };
