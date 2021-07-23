@@ -48,7 +48,7 @@ async function init() {
 		async validate(request: Request, user: string, pass: string, h: ResponseToolkit) {
 
 			// Are we attempting to authenticate, then use the auth password
-			if (request.path === `/discord/auth`) {
+			if (request.path.startsWith(`/discord/auth`)) {
 				return {
 					isValid: config.discord.auth_password === pass,
 					credentials: { pass },
