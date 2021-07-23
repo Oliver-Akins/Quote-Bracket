@@ -2,10 +2,11 @@ import { db } from "@/main";
 
 
 export async function countVotes(data: any): Promise<object> {
+	let gID = data.guild_id;
 
 	let response = `Quote Votes:`;
-	for (var i in db.bracket.quotes) {
-		response += `\n${db.bracket.votes[i] ?? 0} votes for \`${db.bracket.quotes[i]}\``;
+	for (var i in db[gID].bracket.quotes) {
+		response += `\n${db[gID].bracket.votes[i] ?? 0} votes for \`${db[gID].bracket.quotes[i]}\``;
 	};
 	return {
 		type: 4,

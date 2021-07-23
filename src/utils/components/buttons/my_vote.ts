@@ -1,18 +1,19 @@
 import { db } from "@/main";
 
 export async function showUserVote(data: any): Promise<object> {
-	let vote = db.bracket.users[data.member.user.id];
-	let quote = db.bracket.quotes[vote];
+	let gID = data.guild_id;
+	let vote = db[gID].bracket.users[data.member.user.id];
+	let quote = db[gID].bracket.quotes[vote];
 
-	let response = `You currently haven't voted for a quote!`;
+	let content = `You currently haven't voted for a quote!`;
 	if (quote) {
-		response = `Your vote is for:\n> ${quote}`;
+		content = `Your vote is for:\n> ${quote}`;
 	};
 
 	return {
 		type: 4,
 		data: {
-			content: response,
+			content,
 			flags: 1 << 6,
 		}
 	};

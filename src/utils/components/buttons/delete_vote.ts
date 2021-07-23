@@ -3,8 +3,9 @@ import { db } from "@/main";
 
 export async function deleteVote(data: any): Promise<object> {
 	let userID = data.member.user.id;
+	let gID = data.guild_id;
 
-	if (!db.bracket.users[userID]) {
+	if (!db[gID].bracket.users[userID]) {
 		return {
 			type: 4,
 			data: {
@@ -15,10 +16,10 @@ export async function deleteVote(data: any): Promise<object> {
 	};
 
 	// Subtract user's vote from total
-	let vote = db.bracket.users[userID];
-	--db.bracket.votes[vote];
+	let vote = db[gID].bracket.users[userID];
+	--db[gID].bracket.votes[vote];
 
-	delete db.bracket.users[userID];
+	delete db[gID].bracket.users[userID];
 
 	return {
 		type: 4,
