@@ -32,6 +32,7 @@ async function handleButton(data: any): Promise<object> {
 
 export default {
 	method: `POST`, path: `/discord/webhook`,
+	options: { auth: false },
 	async handler(request: Request, h: ResponseToolkit) {
 		let sig = request.headers[`x-signature-ed25519`];
 		let timestamp = request.headers[`x-signature-timestamp`];

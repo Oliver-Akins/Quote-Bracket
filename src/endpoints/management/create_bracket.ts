@@ -1,58 +1,64 @@
 import { Request, ResponseToolkit } from "@hapi/hapi";
-import { DISCORD_API_URI } from "@/constants";
+import { loadHistory, saveHistory } from "@/utils/data";
 import { getQuote } from "@/utils/quotes";
-import { config, db } from "@/main";
-import fs from "fs/promises";
+import { db, config } from "@/main";
+import { BRACKET_DATA, DISCORD_API_URI } from "@/constants";
 import axios from "axios";
 
 export default {
-	method: `GET`, path: `/bracket/finish`,
+	method: `POST`, path: `/{guild_id}/bracket`,
 	async handler(request: Request, h: ResponseToolkit) {
+		let { guild_id: gID } = request.params;
+		let wh = db[gID].webhook;
 
-		if (!db.bracket.msg) {
-			var quotes = await getQuote(config.discord.quote_max);
+		// Create the very first quote bracket
+		let quotes: string[];
+		if (!db[gID].bracket.msg) {
+			quotes = await getQuote(gID, config.guilds[gID].quote_max);
 		} else {
-			// Delete the old message from Discord while processing the new one
-			let wh = db.webhook;
-			await axios.delete(`${DISCORD_API_URI}/webhooks/${wh.id}/${wh.token}/messages/${db.bracket.msg}`);
 
-			// Save the previous bracket to the history file
-			let pastBrackets = JSON.parse(
-				await fs.readFile(config.server.bracket_history, `utf-8`)
-			);
-			pastBrackets.push({
-				quotes: db.bracket.quotes,
-				votes: db.bracket.votes,
+			let response = await request.server.inject({
+				method: `DELETE`,
+				url: `/${gID}/bracket/${config.guilds[gID].delete_mode}`
 			});
-			await fs.writeFile(config.server.bracket_history, JSON.stringify(pastBrackets));
 
+			let pastBrackets = await loadHistory(gID);
+			pastBrackets.push({
+				quotes: db[gID].bracket.quotes,
+				votes: db[gID].bracket.votes,
+			});
+			saveHistory(gID, pastBrackets);
 
 			// Calculate the winners from the previous bracket
 			let r = await request.server.inject(`/bracket/winners`);
-			var quotes: string[] = JSON.parse(r.payload).winners;
-			var winner_count = quotes.length;
+			var data = JSON.parse(r.payload);
+			var winner_count = data.count;
 
-			// Ensure that the all elimination limit didn't get hit
-			if (quotes.length > Math.floor(config.discord.quote_max / 2)) {
+			// Check if we are getting rid of all winners
+			if (data.eliminate_all) {
 				quotes = [];
+				winner_count = 0;
+			} else {
+				quotes = data.winners;
 			};
 
-			// Get any new quotes for the bracket
-			quotes.push(...(await getQuote(config.discord.quote_max - quotes.length)));
-		}
+			// Get enough quotes to meet the maximum for the guild
+			let new_quotes = await getQuote(
+				gID,
+				config.guilds[gID].quote_max - quotes.length
+			);
+			quotes.push(...new_quotes);
+		};
 
 		// Setup the database for the new bracket
-		db.bracket.quotes = quotes;
-		db.bracket.votes = {};
-		db.bracket.users = {};
-		db.bracket.msg = "";
-
+		db[gID].bracket = JSON.parse(JSON.stringify(BRACKET_DATA));
+		db[gID].bracket.quotes = quotes;
 
 		let message = {
 			content: `New Quote Bracket!`,
 			embeds: [
 				{
-					description: `Note: If **more than ${Math.floor(config.discord.quote_max / 2)}** of the quotes tie, they will all be eliminated, otherwise, the ones that tie will move on to the next bracket.`,
+					description: `Note: If **more than ${Math.floor(config.guilds[gID].quote_max / 2)}** of the quotes tie, they will all be eliminated, otherwise, the ones that tie will move on to the next bracket.`,
 					fields: quotes.map((quote, i) => { return {
 						name: `${i < winner_count ? '👑 ' : ''}Quote: ${i + 1}`,
 						value: quote,
@@ -99,6 +105,7 @@ export default {
 			]
 		};
 
+		// Add the development-only buttons if needed
 		if (config.discord.dev_buttons) {
 			message.components.push({
 				type: 1,
@@ -119,9 +126,9 @@ export default {
 			});
 		};
 
-		let url = `${DISCORD_API_URI}/webhooks/${db.webhook.id}/${db.webhook.token}`;
+		let url = `${DISCORD_API_URI}/webhooks/${wh.id}/${wh.token}`;
 		let r = await axios.post(url, message, { params: { wait: true } });
-		db.bracket.msg = r.data.id;
-		return { status: r.status }
+		db[gID].bracket.msg = r.data.id;
+		return h.response(r.data).code(r.status);
 	},
 }
