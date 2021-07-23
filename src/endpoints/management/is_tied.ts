@@ -43,6 +43,6 @@ export default {
 			return h.response(r.data).code(r.status);
 		};
 
-		return h.response().code(200);
+		return h.response({ result: `No Tie` }).code(200);
 	},
 }
