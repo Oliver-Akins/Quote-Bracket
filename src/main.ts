@@ -2,8 +2,7 @@
 import "module-alias/register";
 
 // Begin personal code
-import { DB_DEFAULTS } from "@/constants";
-import { Server } from "@hapi/hapi";
+import basic from "@hapi/basic";
 import path from "path";
 import glob from "glob";
 import toml from "toml";
@@ -42,6 +41,32 @@ async function init() {
 		port: config.server.port,
 	});
 
+	// Setup authentication
+	server.register(basic);
+	server.auth.strategy(`simple`, `basic`, {
+		async validate(request: Request, user: string, pass: string, h: ResponseToolkit) {
+
+			// Are we attempting to authenticate, then use the auth password
+			if (request.path === `/discord/auth`) {
+				return {
+					isValid: config.discord.auth_password === pass,
+					credentials: { pass },
+				};
+			};
+
+			// Ensure the guild has a config
+			if (!config.guilds[user]) {
+				return { isValid: false, };
+			};
+
+			return {
+				isValid: config.guilds[user].password === pass,
+				credentials: { user }
+			};
+		},
+		allowEmptyUsername: true,
+	});
+	server.auth.default(`simple`)
 
 	// Register all the routes
 	let files = glob.sync(
