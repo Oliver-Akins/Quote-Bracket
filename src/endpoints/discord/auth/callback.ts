@@ -9,6 +9,10 @@ export default {
 	async handler(request: Request, h: ResponseToolkit) {
 		let { code, guild_id: gID } = request.query;
 
+		// Assert the guild is allowed to be setup.
+		if (!config.guilds[gID]) {
+			throw boom.notFound(`Cannot save a webhook for a guild that doesn't have a config set up.`);
+		};
 
 		let data = new URLSearchParams();
 		data.set(`client_id`, config.discord.client_id);
