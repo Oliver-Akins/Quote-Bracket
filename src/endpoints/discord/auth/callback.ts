@@ -1,5 +1,5 @@
-import { Request, ResponseToolkit } from "@hapi/hapi";
 import { CHANNEL_DATA, DISCORD_API_URI } from "@/constants";
+import { Request, ResponseToolkit } from "@hapi/hapi";
 import { config, db } from "@/main";
 import boom from "@hapi/boom";
 import axios from "axios";
@@ -7,7 +7,8 @@ import axios from "axios";
 export default {
 	method: `GET`, path: `/discord/auth/callback`,
 	async handler(request: Request, h: ResponseToolkit) {
-		let code = request.query.code;
+		let { code, guild_id: gID } = request.query;
+
 
 		let data = new URLSearchParams();
 		data.set(`client_id`, config.discord.client_id);
@@ -22,20 +23,11 @@ export default {
 			}
 		});
 
-		let { guild_id, id, token } = r.data.webhook;
+		let { id, token } = r.data.webhook;
 
-		// Assert the guild is allowed to be setup.
-		if (!config.guilds[guild_id]) {
-
-			// Delete the webhook so that it doesn't remain in the server
-			await axios.delete(r.data.webhook.url);
-
-			throw boom.notFound(`Cannot save a webhook for a guild that doesn't have a config set up.`);
-		};
-
-		db[guild_id] = JSON.parse(JSON.stringify(CHANNEL_DATA))
-		db[guild_id].webhook.token = token;
-		db[guild_id].webhook.id = id;
+		db[gID] = JSON.parse(JSON.stringify(CHANNEL_DATA))
+		db[gID].webhook.token = token;
+		db[gID].webhook.id = id;
 
 		return r.data;
 	},
