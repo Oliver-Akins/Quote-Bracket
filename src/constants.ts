@@ -1,13 +1,13 @@
-export var DB_DEFAULTS: database = {
+export var CHANNEL_DATA = {
+	webhook: {
+		token: "",
+		id: "",
+	},
 	bracket: {
 		msg: "",
 		quotes: [],
 		votes: {},
 		users: {},
-	},
-	webhook: {
-		id: "",
-		token: ""
 	},
 };
 
