@@ -2,7 +2,7 @@ interface channel_config {
 	password: string;
 	api_base: string;
 	quote_max: number;
-	delete_mode: "no_interactions" | "delete_message";
+	delete_mode: "remove_components" | "delete_message";
 	params: { [index: string]: any };
 }
 
