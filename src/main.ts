@@ -2,6 +2,7 @@
 import "module-alias/register";
 
 // Begin personal code
+import { ResponseToolkit, Server, Request } from "@hapi/hapi";
 import basic from "@hapi/basic";
 import path from "path";
 import glob from "glob";
@@ -17,16 +18,16 @@ export const config: config = toml.parse(fs.readFileSync(`config.toml`, `utf-8`)
 
 
 // Load the database
-if (!fs.existsSync(config.server.db_file)) {
+if (!fs.existsSync(`data/db.json`)) {
 	console.log(`Can't find database file, creating default`);
-	fs.writeFileSync(config.server.db_file, JSON.stringify(DB_DEFAULTS));
+	fs.writeFileSync(`data/db.json`, `{}`);
 };
-export var db: database = JSON.parse(fs.readFileSync(config.server.db_file, `utf-8`));
+export var db: database = JSON.parse(fs.readFileSync(`data/db.json`, `utf-8`));
 
 
 function saveDB() {
 	console.log(`Saving database`);
-	fs.writeFileSync(config.server.db_file, JSON.stringify(db));
+	fs.writeFileSync(`data/db.json`, JSON.stringify(db));
 	process.exit(0);
 };
 
