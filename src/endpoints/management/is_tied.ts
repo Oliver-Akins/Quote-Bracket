@@ -8,17 +8,13 @@ export default {
 	async handler(request: Request, h: ResponseToolkit) {
 		let gID = request.params.guild_id;
 
-		let r = await request.server.inject(`/${gID}/bracket/winners`);
+		let r = await request.server.inject({
+			url: `/${gID}/bracket/winners`,
+			auth: request.auth,
+		});
 		let data = JSON.parse(r.payload);
 
 		if (data.count >= 2) {
-
-			// Get the webhook's current information
-			let wh = db[gID].webhook;
-			let r = await axios.get(
-				`${DISCORD_API_URI}/webhooks/${wh.id}/${wh.token}`
-			);
-			let { channel_id } = r.data;
 
 			// Construct the primary body of the message
 			let content = `The bracket currently has a tie between:\n> ${data.winners.join('\n~~------------------------------------~~\n> ')}`;
@@ -31,11 +27,12 @@ export default {
 			};
 
 			// Add link if we know what channel the message was posted in
-			if (channel_id) {
-				content += `\n\n[Jump To Bracket](https://discord.com/${gID}/${channel_id}/${db[gID].bracket.msg})`
+			if (db[gID].bracket.channel) {
+				content += `\n\n[Jump To Bracket](https://discord.com/channels/${gID}/${db[gID].bracket.channel}/${db[gID].bracket.msg})`
 			};
 
-			r = await axios.post(
+			let wh = db[gID].webhook;
+			let r = await axios.post(
 				`${DISCORD_API_URI}/webhooks/${wh.id}/${wh.token}`,
 				{ content },
 				{ params: { wait: true } }
