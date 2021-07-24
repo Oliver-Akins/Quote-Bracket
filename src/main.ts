@@ -45,13 +45,13 @@ async function init() {
 	// Setup authentication
 	server.register(basic);
 	server.auth.strategy(`simple`, `basic`, {
-		async validate(request: Request, user: string, pass: string, h: ResponseToolkit) {
+		async validate(request: Request, user: string, password: string, h: ResponseToolkit) {
 
 			// Are we attempting to authenticate, then use the auth password
 			if (request.path.startsWith(`/discord/auth`)) {
 				return {
-					isValid: config.discord.auth_password === pass,
-					credentials: { pass },
+					isValid: config.discord.auth_password === password,
+					credentials: { user, password },
 				};
 			};
 
@@ -61,8 +61,8 @@ async function init() {
 			};
 
 			return {
-				isValid: config.guilds[user].password === pass,
-				credentials: { user }
+				isValid: config.guilds[user].password === password,
+				credentials: { user, password }
 			};
 		},
 		allowEmptyUsername: true,
