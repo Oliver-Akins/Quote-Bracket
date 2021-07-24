@@ -4,7 +4,7 @@ export async function selectQuote(data: any): Promise<object> {
 	let vote = parseInt(data.data.values[0]);
 	let userID = data.member.user.id;
 	let gID = data.guild_id;
-	let oldVote = db[gID].bracket.votes[userID];
+	let oldVote = db[gID].bracket.users[userID];
 
 
 	// Assert votes are different
