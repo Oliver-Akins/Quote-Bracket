@@ -16,6 +16,7 @@ export default {
 			// New maximum, reset array of winners
 			if (data.votes[quote] > highest) {
 				winners = [ data.quotes[quote] ];
+				highest = data.votes[quote];
 			}
 
 			// Tied highest, add to list
