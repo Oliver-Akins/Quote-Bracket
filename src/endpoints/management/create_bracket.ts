@@ -17,9 +17,10 @@ export default {
 			quotes = await getQuote(gID, config.guilds[gID].quote_max);
 		} else {
 
-			let response = await request.server.inject({
+			await request.server.inject({
 				method: `DELETE`,
-				url: `/${gID}/bracket/${config.guilds[gID].delete_mode}`
+				url: `/${gID}/bracket/${config.guilds[gID].delete_mode}`,
+				auth: request.auth,
 			});
 
 			let pastBrackets = await loadHistory(gID);
@@ -30,7 +31,10 @@ export default {
 			saveHistory(gID, pastBrackets);
 
 			// Calculate the winners from the previous bracket
-			let r = await request.server.inject(`/bracket/winners`);
+			let r = await request.server.inject({
+				url: `/${gID}/bracket/winners`,
+				auth: request.auth,
+			});;
 			var data = JSON.parse(r.payload);
 			var winner_count = data.count;
 
@@ -129,6 +133,7 @@ export default {
 		let url = `${DISCORD_API_URI}/webhooks/${wh.id}/${wh.token}`;
 		let r = await axios.post(url, message, { params: { wait: true } });
 		db[gID].bracket.msg = r.data.id;
+		db[gID].bracket.channel = r.data.channel_id;
 		return h.response(r.data).code(r.status);
 	},
 }
