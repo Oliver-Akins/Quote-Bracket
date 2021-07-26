@@ -5,7 +5,8 @@ export async function deleteVote(data: any): Promise<object> {
 	let userID = data.member.user.id;
 	let gID = data.guild_id;
 
-	if (!db[gID].bracket.users[userID]) {
+	// Assert the user has voted
+	if (db[gID].bracket.users[userID] == null) {
 		return {
 			type: 4,
 			data: {
