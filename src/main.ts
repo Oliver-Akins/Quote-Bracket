@@ -55,6 +55,9 @@ async function init() {
 				};
 			};
 
+			// Assume the user is the same as the guild ID
+			user = user || request.params.guild_id;
+
 			// Ensure the guild has a config
 			if (!config.guilds[user]) {
 				return { isValid: false, };
