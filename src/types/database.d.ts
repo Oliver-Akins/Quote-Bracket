@@ -1,16 +1,18 @@
+interface bracket_data {
+	msg: string;
+	channel: string;
+	quotes: string[];
+	votes: { [index: number]: number };
+	users: { [index: string]: number };
+}
+
 interface database {
 	[index: string]: {
 		webhook: {
 			id: string;
 			token: string;
 		};
-		bracket: {
-			msg: string;
-			channel: string;
-			quotes: string[];
-			votes: { [index: number]: number };
-			users: { [index: string]: number };
-		};
+		bracket: bracket_data;
 	}
 }
 

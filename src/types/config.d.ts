@@ -2,6 +2,7 @@ interface channel_config {
 	password: string;
 	api_base: string;
 	quote_max: number;
+	bot_token?: string;
 	delete_mode: "remove_components" | "delete_message";
 	params: { [index: string]: any };
 }
