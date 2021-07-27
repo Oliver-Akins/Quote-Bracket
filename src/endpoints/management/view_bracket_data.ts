@@ -11,7 +11,7 @@ export default {
 
 		// See if we are adding the user's conversion table to the response
 		let users: {[index: string]: string} = {};
-		if (convert_ids.toLowerCase() === `true` && config.guilds[gID].bot_token) {
+		if (convert_ids?.toLowerCase() === `true` && config.guilds[gID].bot_token) {
 			for (var k in db[gID].bracket.users) {
 				let r = await axios.get(
 					`${DISCORD_API_URI}/users/${k}`,
@@ -27,7 +27,7 @@ export default {
 
 		return h.response({
 			db: db[gID].bracket,
-			user_conversion: users
+			user_id_mapping: users,
 		});
 	},
 }
