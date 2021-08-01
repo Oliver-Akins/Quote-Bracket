@@ -13,4 +13,4 @@ export var CHANNEL_DATA = {
 	bracket: BRACKET_DATA,
 };
 
-export var DISCORD_API_URI: string = `https://discord.com/api/v8`;
+export var DISCORD_API_URI: string = `https://discord.com/api/v9`;
