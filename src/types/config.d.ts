@@ -5,6 +5,8 @@ interface channel_config {
 	bot_token?: string;
 	delete_mode: "remove_components" | "delete_message";
 	params: { [index: string]: any };
+	thread_name?: string;
+	include_jump_link_for_threads?: boolean;
 }
 
 interface config {
