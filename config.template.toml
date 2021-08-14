@@ -1,0 +1,70 @@
+[discord]
+
+# The password required in order to be allowed to authenticate with Discord
+auth_password = ""
+
+# The OAuth application's client ID
+client_id = ""
+
+# The application secret for Discord
+secret = ""
+
+# The application's public key
+public_key = ""
+
+# The authentication redirect for Discord to send back to, replace DOMAIN_HERE
+# with the domain pointing to your server. (this domain needs to support HTTPS,
+# as is imposed by Discord for the webhook URL)
+auth_redirect = "DOMAIN_HERE/discord/auth/callback"
+
+# Whether or not to include the "View Count" and "Show DB" buttons on the
+# bracket messages
+dev_buttons = false
+
+[server]
+# The location the server is hosted at, this is only for logging purposes
+host = ""
+
+# The port to run the server on
+port = 3000
+
+[guilds]
+
+# This is an example Guild object, replace GUILD_ID in the square brackets below
+# with the ID of the guild you want to service. This is a mandatory step, and if
+# the guild ID is wrong, the system will not allow you to setup the quote bracket
+# in that guild.
+#
+# This block of options can be repeated for however many guilds that you want,
+# if the server is running while you modify this file, you must restart the
+# server in order for changes to take effect.
+[guilds.GUILD_ID]
+
+# The password for the guild in order to access the management endpoints
+password = ""
+
+# How many quotes should be in each bracket
+quote_max = 5
+
+# How will the previous bracket message be handled?
+#	- "remove_components": Removes the dropdown and buttons from the message,
+#		leaves the message content/embed as it was for the duration of the
+#		bracket. Allowing context to remain for conversation.
+#	- "delete_message": Completely deletes the message from Discord. These
+#		brackets cannot be recovered and the message is gone forever.
+delete_mode = "remove_components"
+
+# The URL that the GET request to get the quotes is made to.
+api_base = "https://twitch.center/customapi/quote/list"
+
+# The querystring parameters that are sent following the api_base URL
+params = { token = "" }
+
+# OPTIONAL: The bot token that can be used to create a thread when alerting of
+# a tie
+bot_token = ""
+
+# Whether or not to include a hyperlink in the message content for when a tie
+# message is sent. This only affects the message when it is being sent in a
+# thread
+include_jump_link_for_threads = false
