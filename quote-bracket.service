@@ -1,5 +1,5 @@
 [Unit]
-Description=Server for voting on the community's favourite quote said by the Resonym crew.
+Description=The webhook ingest for voting on a community's favourite quote.
 
 [Service]
 Type=simple
