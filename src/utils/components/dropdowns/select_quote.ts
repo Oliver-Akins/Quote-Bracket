@@ -18,24 +18,18 @@ export async function selectQuote(data: any): Promise<object> {
 		};
 	};
 
-
-	// Set quote to 0 if it hasn't been voted for yet
-	// if (!db[gID].bracket.votes[vote]) {
-	// 	db[gID].bracket.votes[vote] = 0;
-	// };
-
 	++db[gID].bracket.quotes[newVote].votes;
 	db[gID].bracket.users[userID] = newVote;
 
 	// User changed their vote
 	if (oldVote != null) {
 
-		--db[gID].bracket.votes[oldVote];
+		--db[gID].bracket.quotes[oldVote].votes;
 
 		return {
 			type: 4,
 			data: {
-				content: `Your vote has been changed from:\n> ${db[gID].bracket.quotes[oldVote]}\nto:\n> ${db[gID].bracket.quotes[newVote]}`,
+				content: `Your vote has been changed from:\n> ${db[gID].bracket.quotes[oldVote].text}\nto:\n> ${db[gID].bracket.quotes[newVote].text}`,
 				flags: 1 << 6,
 			}
 		};
@@ -46,7 +40,7 @@ export async function selectQuote(data: any): Promise<object> {
 		return {
 			type: 4,
 			data: {
-				content: `Your vote has been recorded for:\n> ${db[gID].bracket.quotes[newVote]}`,
+				content: `Your vote has been recorded for:\n> ${db[gID].bracket.quotes[newVote].text}`,
 				flags: 1 << 6,
 			}
 		};
