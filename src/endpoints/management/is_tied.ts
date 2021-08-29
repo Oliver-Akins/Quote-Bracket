@@ -65,7 +65,16 @@ export default {
 
 			// Add link if we know what channel the message was posted in
 			let use_jump_link = config.guilds[gID].include_jump_link_for_threads ?? true;
-			if (db[gID].bracket.channel && (use_jump_link && params.thread_id)) {
+			if (
+				db[gID].bracket.channel
+				&& (
+					!try_thread
+					|| (
+						use_jump_link
+						|| !params.thread_id
+					)
+				)
+			) {
 				content += `\n\n[Jump To Bracket](https://discord.com/channels/${gID}/${bracket.channel}/${bracket.msg})`
 			};
 
