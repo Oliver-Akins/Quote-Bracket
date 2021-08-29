@@ -12,7 +12,7 @@ export default {
 		let wh = db[gID].webhook;
 
 		// Create the very first quote bracket
-		let quotes: string[];
+		let quotes: quote[];
 		if (!db[gID].bracket.msg) {
 			quotes = await getQuote(gID, config.guilds[gID].quote_max);
 		} else {
@@ -24,18 +24,15 @@ export default {
 			});
 
 			let pastBrackets = await loadHistory(gID);
-			pastBrackets.push({
-				quotes: db[gID].bracket.quotes,
-				votes: db[gID].bracket.votes,
-			});
+			pastBrackets.push(db[gID].bracket.quotes);
 			saveHistory(gID, pastBrackets);
 
 			// Calculate the winners from the previous bracket
 			let r = await request.server.inject({
 				url: `/${gID}/bracket/winners`,
 				auth: request.auth,
-			});;
-			var data = JSON.parse(r.payload);
+			});
+			let data = JSON.parse(r.payload);
 			var winner_count = data.count;
 
 			// Check if we are getting rid of all winners
