@@ -11,16 +11,19 @@ export async function getQuote(gID: string, count = 1) {
 	let history = await loadUsedQuotes(gID);
 
 	// Populate the quotes list
-	let quotes: string[] = [];
+	let quotes: quote[] = [];
 	do {
-		let quote = quoteList[Math.floor(Math.random() * quoteList.length)];
+		let quote: quote = {
+			text: quoteList[Math.floor(Math.random() * quoteList.length)],
+			votes: 0,
+			win_streak: 0,
+		};
 
-		if (!quotes.includes(quote) && !history.includes(quote)) {
+		if (!quotes.includes(quote) && !history.includes(quote.text)) {
 			quotes.push(quote);
+			history.push(quote.text);
 		};
 	} while (quotes.length < count);
-
-	history.push(...quotes)
 
 	await saveUsedQuotes(gID, history);
 
