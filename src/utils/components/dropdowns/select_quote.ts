@@ -1,14 +1,14 @@
 import { db } from "@/main";
 
 export async function selectQuote(data: any): Promise<object> {
-	let vote = parseInt(data.data.values[0]);
+	let newVote = parseInt(data.data.values[0]);
 	let userID = data.member.user.id;
 	let gID = data.guild_id;
 	let oldVote = db[gID].bracket.users[userID];
 
 
 	// Assert votes are different
-	if (oldVote === vote) {
+	if (oldVote === newVote) {
 		return {
 			type: 4,
 			data: {
@@ -20,12 +20,12 @@ export async function selectQuote(data: any): Promise<object> {
 
 
 	// Set quote to 0 if it hasn't been voted for yet
-	if (!db[gID].bracket.votes[vote]) {
-		db[gID].bracket.votes[vote] = 0;
-	};
+	// if (!db[gID].bracket.votes[vote]) {
+	// 	db[gID].bracket.votes[vote] = 0;
+	// };
 
-	++db[gID].bracket.votes[vote];
-	db[gID].bracket.users[userID] = vote;
+	++db[gID].bracket.quotes[newVote].votes;
+	db[gID].bracket.users[userID] = newVote;
 
 	// User changed their vote
 	if (oldVote != null) {
@@ -35,7 +35,7 @@ export async function selectQuote(data: any): Promise<object> {
 		return {
 			type: 4,
 			data: {
-				content: `Your vote has been changed from:\n> ${db[gID].bracket.quotes[oldVote]}\nto:\n> ${db[gID].bracket.quotes[vote]}`,
+				content: `Your vote has been changed from:\n> ${db[gID].bracket.quotes[oldVote]}\nto:\n> ${db[gID].bracket.quotes[newVote]}`,
 				flags: 1 << 6,
 			}
 		};
@@ -46,7 +46,7 @@ export async function selectQuote(data: any): Promise<object> {
 		return {
 			type: 4,
 			data: {
-				content: `Your vote has been recorded for:\n> ${db[gID].bracket.quotes[vote]}`,
+				content: `Your vote has been recorded for:\n> ${db[gID].bracket.quotes[newVote]}`,
 				flags: 1 << 6,
 			}
 		};
