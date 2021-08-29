@@ -64,7 +64,7 @@ export default {
 				{
 					description: `Note: If **more than ${Math.floor(config.guilds[gID].quote_max / 2)}** of the quotes tie, they will all be eliminated, otherwise, the ones that tie will move on to the next bracket.`,
 					fields: quotes.map((quote, i) => { return {
-						name: `${i < winner_count ? '👑 ' : ''}Quote: ${i + 1}`,
+						name: `${i < winner_count ? '👑 ' : ''}Quote ${i + 1}:`,
 						value: quote,
 					}}),
 				}
