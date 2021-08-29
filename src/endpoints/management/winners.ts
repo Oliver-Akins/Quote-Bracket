@@ -7,21 +7,20 @@ export default {
 		let gID = request.params.guild_id;
 		let data = db[gID].bracket;
 
-		let winners: string[] = [];
+		let winners: quote[] = [];
 		let highest = -1;
 
-		// Iterate through all quotes that were voted for
-		for (var quote in data.votes) {
+		// Run through all of the quotes to find the most voted for ones
+		for (var quote of data.quotes) {
 
-			// New maximum, reset array of winners
-			if (data.votes[quote] > highest) {
-				winners = [ data.quotes[quote] ];
-				highest = data.votes[quote];
+			// New maximum, remove all previous winners
+			if (quote.votes > highest) {
+				winners = [ quote ];
+				highest = quote.votes;
 			}
 
-			// Tied highest, add to list
-			else if (data.votes[quote] == highest) {
-				winners.push( data.quotes[quote] );
+			else if (quote.votes === highest) {
+				winners.push( quote );
 			};
 		};
 
