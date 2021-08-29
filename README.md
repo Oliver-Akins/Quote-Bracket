@@ -12,8 +12,7 @@ A system for determining the best quote for a stream. This was made for the [Res
 
 - [@Oliver-Akins](https://github.com/Oliver-Akins)
 
-
-## Run Locally
+  ## Setup Instructions
 
 1. Clone the git repo to a server
 2. Setup your domain to point to the server, this can be pointing through a reverse proxy like Nginx or directly at the Node server. **Note:** However you set it up, it must support HTTPS, otherwise Discord will not let you use the domain as a webhook endpoint.
