@@ -1,8 +1,14 @@
+interface quote {
+	text: string;
+	votes: number;
+	win_streak: number;
+}
+
+
 interface bracket_data {
 	msg: string;
 	channel: string;
-	quotes: string[];
-	votes: { [index: number]: number };
+	quotes: quote[];
 	users: { [index: string]: number };
 }
 
