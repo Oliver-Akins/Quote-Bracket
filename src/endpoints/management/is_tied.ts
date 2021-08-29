@@ -7,7 +7,7 @@ export default {
 	method: `GET`, path: `/{guild_id}/bracket/isTied`,
 	async handler(request: Request, h: ResponseToolkit) {
 		let { guild_id: gID } = request.params;
-		let { try_thread } = request.query;
+		let try_thread = request.query?.try_thread === `true`;
 
 		let r = await request.server.inject({
 			url: `/${gID}/bracket/winners`,
@@ -32,7 +32,7 @@ export default {
 			let params: execute_webhook_query_params = { wait: true };
 
 			// Check if the user is wanting to use a thread notification
-			if (try_thread === `true` && config.guilds[gID].bot_token) {
+			if (try_thread && config.guilds[gID].bot_token) {
 				try {
 					await axios.get(
 						`${DISCORD_API_URI}/channels/${bracket.msg}`,
