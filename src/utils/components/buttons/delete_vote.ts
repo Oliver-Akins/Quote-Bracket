@@ -18,7 +18,7 @@ export async function deleteVote(data: any): Promise<object> {
 
 	// Subtract user's vote from total
 	let vote = db[gID].bracket.users[userID];
-	--db[gID].bracket.votes[vote];
+	--db[gID].bracket.quotes[vote].votes;
 
 	delete db[gID].bracket.users[userID];
 
