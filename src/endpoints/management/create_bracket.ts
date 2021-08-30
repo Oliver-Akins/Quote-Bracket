@@ -94,7 +94,7 @@ export default {
 							type: 3,
 							custom_id: `quote`,
 							placeholder: `Choose Your Favourite Quote`,
-							options:quotes.map((_, i) => {
+							options: quotes.map((_, i) => {
 								return {
 									label: `Quote ${i + 1}`,
 									value: i,
