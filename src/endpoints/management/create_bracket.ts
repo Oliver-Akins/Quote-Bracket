@@ -49,7 +49,7 @@ export default {
 
 			// Calculate the winners from the previous bracket
 			let r = await request.server.inject({
-				url: `/${gID}/bracket/winners`,
+				url: `/${gID}/bracket/winners?finalize=true`,
 				auth: request.auth,
 			});
 			let data = JSON.parse(r.payload);
