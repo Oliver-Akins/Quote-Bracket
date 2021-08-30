@@ -11,6 +11,26 @@ export default {
 		let { guild_id: gID } = request.params;
 		let wh = db[gID].webhook;
 
+
+		function generateFieldTitle(index: number, quote: quote): string {
+			// Change the name based on if the quote won or not
+			if (quote.win_streak > 0) {
+				let name = `👑 Quote ${index + 1}:`;
+
+				if (config.guilds[gID].show_win_streak ?? true) {
+					name += ` (Streak: ${quote.win_streak})`;
+				};
+
+				return name;
+			}
+
+			else {
+				return `Quote ${index + 1}:`;
+			};
+		};
+
+
+
 		// Create the very first quote bracket
 		let quotes: quote[];
 		if (!db[gID].bracket.msg) {
