@@ -7,7 +7,7 @@ export async function showUserVote(data: any): Promise<object> {
 
 	let content = `You currently haven't voted for a quote!`;
 	if (quote) {
-		content = `Your vote is for:\n> ${quote}`;
+		content = `Your vote is for:\n> ${quote.text}`;
 	};
 
 	return {
