@@ -22,7 +22,4 @@ interface database {
 	}
 }
 
-interface bracket_history {
-	quotes: string[];
-	votes: { [index: number]: number };
-}
+type bracket_history = quote[];
