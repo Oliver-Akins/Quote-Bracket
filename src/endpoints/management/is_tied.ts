@@ -19,7 +19,10 @@ export default {
 			let bracket = db[gID].bracket;
 
 			// Construct the primary body of the message
-			let content = `The bracket currently has a tie between:\n> ${data.winners.join('\n~~------------------------------------~~\n> ')}`;
+			let content = `The bracket currently has a tie between:\n> `;
+			content += data.winners
+				.map((q:quote) => q.text)
+				.join('\n~~------------------------------------~~\n> ');
 
 			// Alert users if all will be eliminated or not
 			if (data.eliminate_all) {
