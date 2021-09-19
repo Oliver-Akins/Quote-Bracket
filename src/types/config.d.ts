@@ -6,7 +6,9 @@ interface channel_config {
 	delete_mode: "remove_components" | "delete_message";
 	params: { [index: string]: any };
 	thread_name?: string;
-	include_jump_link_for_threads?: boolean;
+	show_win_streak?: boolean;
+	extra_buttons?: string[];
+	tie_reminder: "channel" | "thread" | "thread_no_jump_link";
 }
 
 interface config {

@@ -4,6 +4,10 @@ import { getQuote } from "@/utils/quotes";
 import { db, config } from "@/main";
 import { BRACKET_DATA, DISCORD_API_URI } from "@/constants";
 import axios from "axios";
+import { deleteVoteButton } from "@/utils/components/buttons/delete_vote";
+import { showUserVoteButton } from "@/utils/components/buttons/my_vote";
+import { viewDBButton } from "@/utils/components/buttons/view_db";
+import { countVotesButton } from "@/utils/components/buttons/count_votes";
 
 export default {
 	method: `POST`, path: `/{guild_id}/bracket`,
@@ -109,21 +113,31 @@ export default {
 				{
 					type: 1,
 					components: [
-						{
-							type: 2,
-							style: 1,
-							label: `What Did I Vote For?`,
-							custom_id: `showMyVote`
-						},
-						{
-							type: 2,
-							style: 4,
-							label: `Remove Vote`,
-							custom_id: `deleteVote`
-						}
-					]
+						showUserVoteButton,
+						deleteVoteButton,
+					],
 				}
 			]
+		};
+
+		//---------------------------------
+		// Add the extra buttons as desired
+		let extra_buttons = config.guilds[gID].extra_buttons ?? [];
+		if (extra_buttons.length > 0) {
+			let actionRow: action_row = {
+				type: 1,
+				components: [],
+			};
+
+			if (extra_buttons.includes(`DB`)) {
+				actionRow.components.push(viewDBButton);
+			};
+
+			if (extra_buttons.includes(`voteCount`)) {
+				actionRow.components.push(countVotesButton);
+			};
+
+			message.components.push(actionRow);
 		};
 
 		// Add the development-only buttons if needed
