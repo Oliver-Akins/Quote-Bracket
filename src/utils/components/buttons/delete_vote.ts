@@ -1,6 +1,14 @@
 import { db } from "@/main";
 
 
+export const deleteVoteButton = {
+	type: 2,
+	style: 4,
+	label: `Remove Vote`,
+	custom_id: `deleteVote`
+};
+
+
 export async function deleteVote(data: any): Promise<object> {
 	let userID = data.member.user.id;
 	let gID = data.guild_id;

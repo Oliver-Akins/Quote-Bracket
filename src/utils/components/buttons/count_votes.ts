@@ -1,6 +1,14 @@
 import { db } from "@/main";
 
 
+export const countVotesButton: button = {
+	type: 2,
+	style: 2,
+	label: `See Count`,
+	custom_id: `showCount`,
+};
+
+
 export async function countVotes(data: any): Promise<object> {
 	let gID = data.guild_id;
 

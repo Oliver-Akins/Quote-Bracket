@@ -1,5 +1,13 @@
 import { db } from "@/main";
 
+
+export const showUserVoteButton = {
+	type: 2,
+	style: 1,
+	label: `What Did I Vote For?`,
+	custom_id: `showMyVote`,
+};
+
 export async function showUserVote(data: any): Promise<object> {
 	let gID = data.guild_id;
 	let vote = db[gID].bracket.users[data.member.user.id];
