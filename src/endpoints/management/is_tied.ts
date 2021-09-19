@@ -7,7 +7,7 @@ export default {
 	method: `GET`, path: `/{guild_id}/bracket/isTied`,
 	async handler(request: Request, h: ResponseToolkit) {
 		let { guild_id: gID } = request.params;
-		let try_thread = request.query?.try_thread === `true`;
+		let thread_behaviour = config.guilds[gID].tie_reminder;
 
 		let r = await request.server.inject({
 			url: `/${gID}/bracket/winners`,
@@ -35,7 +35,7 @@ export default {
 			let params: execute_webhook_query_params = { wait: true };
 
 			// Check if the user is wanting to use a thread notification
-			if (try_thread && config.guilds[gID].bot_token) {
+			if ((thread_behaviour !== "channel") && config.guilds[gID].bot_token) {
 				try {
 					await axios.get(
 						`${DISCORD_API_URI}/channels/${bracket.msg}`,
@@ -67,18 +67,18 @@ export default {
 			};
 
 			// Add link if we know what channel the message was posted in
-			let use_jump_link = config.guilds[gID].include_jump_link_for_threads ?? true;
-			if (
-				db[gID].bracket.channel
-				&& (
-					!try_thread
-					|| (
-						use_jump_link
-						|| !params.thread_id
-					)
-				)
-			) {
-				content += `\n\n[Jump To Bracket](https://discord.com/channels/${gID}/${bracket.channel}/${bracket.msg})`
+			if (db[gID].bracket.channel) {
+				switch (thread_behaviour) {
+					case "channel":
+					case "thread":
+						content += `\n\n[Jump To Bracket](https://discord.com/channels/${gID}/${bracket.channel}/${bracket.msg})`;
+						break;
+					case "thread_no_jump_link":
+						if (!params.thread_id) {
+							content += `\n\n[Jump To Bracket](https://discord.com/channels/${gID}/${bracket.channel}/${bracket.msg})`;
+						};
+						break;
+				};
 			};
 
 			let wh = db[gID].webhook;
