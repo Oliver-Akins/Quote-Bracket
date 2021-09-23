@@ -21,7 +21,9 @@ export default {
 			if (quote.win_streak > 0) {
 				let name = `👑 Quote ${index + 1}:`;
 
-				if (config.guilds[gID].show_win_streak ?? true) {
+				// Add the win streak information if desired
+				if ((config.guilds[gID].show_win_streak ?? true)
+					&& quote.win_streak > 0) {
 					name += ` (Streak: ${quote.win_streak})`;
 				};
 
