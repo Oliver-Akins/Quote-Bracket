@@ -17,10 +17,6 @@ public_key = ""
 # as is imposed by Discord for the webhook URL)
 auth_redirect = "DOMAIN_HERE/discord/auth/callback"
 
-# Whether or not to include the "View Count" and "Show DB" buttons on the
-# bracket messages
-dev_buttons = false
-
 [server]
 # The location the server is hosted at, this is only for logging purposes
 host = ""

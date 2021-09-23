@@ -18,7 +18,6 @@ interface config {
 		secret: string;
 		public_key: string;
 		auth_redirect: string;
-		dev_buttons: boolean;
 	};
 	server: {
 		host: string;

@@ -140,27 +140,6 @@ export default {
 			message.components.push(actionRow);
 		};
 
-		// Add the development-only buttons if needed
-		if (config.discord.dev_buttons) {
-			message.components.push({
-				type: 1,
-				components: [
-					{
-						type: 2,
-						style: 1,
-						label: `See Count`,
-						custom_id: `showCount`,
-					},
-					{
-						type: 2,
-						style: 1,
-						label: `See Database Object`,
-						custom_id: `viewDB`,
-					}
-				]
-			});
-		};
-
 		let url = `${DISCORD_API_URI}/webhooks/${wh.id}/${wh.token}`;
 		let r = await axios.post(url, message, { params: { wait: true } });
 		db[gID].bracket.msg = r.data.id;
