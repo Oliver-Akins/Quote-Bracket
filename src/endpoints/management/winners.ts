@@ -22,11 +22,6 @@ const route: ServerRoute = {
 		// Run through all of the quotes to find the most voted for ones
 		for (var quote of data.quotes) {
 
-			if (finalize) {
-				quote.win_streak++;
-				quote.votes = 0;
-			};
-
 			// New maximum, remove all previous winners
 			if (quote.votes > highest) {
 				winners = [ quote ];
@@ -35,6 +30,12 @@ const route: ServerRoute = {
 
 			else if (quote.votes === highest) {
 				winners.push( quote );
+			};
+
+			// Reset the bracket data as needed
+			if (finalize) {
+				quote.win_streak++;
+				quote.votes = 0;
 			};
 		};
 
