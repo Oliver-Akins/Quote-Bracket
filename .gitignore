@@ -1,8 +1,8 @@
 # User ignored files
-config.toml
+server/config.toml
 *.json
-!package-lock.json
-!package.json
+!server/package-lock.json
+!server/package.json
 
 # Node files
 node_modules
