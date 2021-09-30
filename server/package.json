@@ -27,7 +27,7 @@
     "@types/hapi__basic": "^5.1.2",
     "@types/hapi__hapi": "^20.0.9",
     "@types/node": "^16.3.1",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "glob": "^7.1.7",
     "joi": "^17.4.2",
     "module-alias": "^2.2.2",
