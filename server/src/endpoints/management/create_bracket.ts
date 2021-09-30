@@ -136,7 +136,7 @@ export default {
 				components: [],
 			};
 
-			if (extra_buttons.includes(`historyLink`)) {
+			if (extra_buttons.includes(`historyLink`) && config.server.history_site_base) {
 				actionRow.components.push(historyLinkButton(gID));
 			};
 
