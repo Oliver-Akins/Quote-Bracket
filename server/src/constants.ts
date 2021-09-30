@@ -1,11 +1,12 @@
-export var BRACKET_DATA = {
+export var BRACKET_DATA: bracket_data = {
 	msg: "",
 	quotes: [],
-	votes: {},
 	users: {},
+	channel: "",
 };
 
-export var CHANNEL_DATA = {
+export var CHANNEL_DATA: channel_data = {
+	version: 2,
 	webhook: {
 		token: "",
 		id: "",
