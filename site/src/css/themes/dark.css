@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500&family=Electrolize&display=swap');
+
+:root {
+	/* ===================================================================== */
+	/* Default Themes for backgrounds and accent colours */
+	--primary-background: #23272A;
+	--primary-border: unset;
+	--secondary-background: #2C2F33;
+	--secondary-border: unset;
+	--tertiary-background: #343A40;
+	--tertiary-border: unset;
+
+	/* Border indicators for better support in high contrast themes */
+	--large-border-radius: 10px;
+	--medium-border-radius: 7px;
+	--small-border-radius: 5px;
+
+	/* Text colours and the default font family */
+	--fonts: 'Electrolize', 'Chakra Petch', sans-serif;
+	--light-text: #E9ECEF;
+	--dark-text: #000000;
+
+	/* Accent colours used for smaller sections on the site */
+	--accent-positive: #1DB954;
+	--accent-neutral: #7289DA;
+	--accent-negative: #ED4245;
+
+	/* Scrollbar styling */
+	--scrollbar-background: #0f0f0f;
+	--scrollbar-handle: #4D4D4D;
+	--scrollbar-handle-hover: #5E5E5E;
+
+	/* ===================================================================== */
+	/* Additional Themes for the specific site */
+	--blurple-faded: #383e77;
+
+	/* ===================================================================== */
+	/* Discord branding colours */
+
+	/* Pre-Rebranding */
+	--og-blurple: #7289da;
+	--greyple: #99aab5;
+	--dark-but-not-black: #2c2f33;
+	--not-quite-black: #23272a;
+	/* + black and white */
+
+	/* Post-Rebranding */
+	--blurple: #5865f2;
+	--green: #57f287;
+	--yellow: #fee75c;
+	--fuchsia: #eb459e;
+	--red: #ed4245;
+	/* + black and white */
+}
