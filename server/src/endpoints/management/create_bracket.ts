@@ -64,12 +64,10 @@ export default {
 				auth: request.auth,
 			});
 			let data = JSON.parse(r.payload);
-			var winner_count = data.count;
 
 			// Check if we are getting rid of all winners
 			if (data.eliminate_all) {
 				quotes = [];
-				winner_count = 0;
 			} else {
 				quotes = data.winners;
 			};
@@ -105,11 +103,11 @@ export default {
 							type: 3,
 							custom_id: `quote`,
 							placeholder: `Choose Your Favourite Quote`,
-							options: quotes.map((_, i) => {
+							options: quotes.map((quote, i) => {
 								return {
 									label: `Quote ${i + 1}`,
 									value: i,
-									emoji: i < winner_count ? {
+									emoji: quote.win_streak > 0 ? {
 										name: `👑`
 									} : null
 								}
