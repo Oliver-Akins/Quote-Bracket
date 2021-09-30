@@ -22,4 +22,8 @@ interface database {
 	}
 }
 
-type bracket_history = quote[];
+interface bracket_history {
+	version: 2;
+	date: string;
+	quotes: quote[];
+}

@@ -50,7 +50,11 @@ export default {
 			});
 
 			let pastBrackets = await loadHistory(gID);
-			pastBrackets.push(db[gID].bracket.quotes);
+			pastBrackets.push({
+				version: 2,
+				date: new Date().toISOString(),
+				quotes: db[gID].bracket.quotes,
+			});
 			saveHistory(gID, pastBrackets);
 
 			// Calculate the winners from the previous bracket
