@@ -3,6 +3,10 @@ server/config.toml
 *.json
 !server/package-lock.json
 !server/package.json
+!server/tsconfig.json
+
+!site/package-lock.json
+!site/package.json
 
 # Node files
 node_modules
