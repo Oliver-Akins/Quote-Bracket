@@ -28,5 +28,6 @@ interface button {
 interface link_button {
 	type: 2;
 	style: 5;
+	label: string;
 	url: string;
 }

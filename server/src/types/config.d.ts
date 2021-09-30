@@ -23,6 +23,7 @@ interface config {
 	server: {
 		host: string;
 		port: number;
+		history_site_base: string;
 	};
 	guilds: {
 		[index: string]: channel_config;

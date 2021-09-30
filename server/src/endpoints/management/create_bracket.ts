@@ -8,6 +8,7 @@ import { deleteVoteButton } from "@/utils/components/buttons/delete_vote";
 import { showUserVoteButton } from "@/utils/components/buttons/my_vote";
 import { viewDBButton } from "@/utils/components/buttons/view_db";
 import { countVotesButton } from "@/utils/components/buttons/count_votes";
+import { historyLinkButton } from "@/utils/components/buttons/history_site";
 
 export default {
 	method: `POST`, path: `/{guild_id}/bracket`,
@@ -133,6 +134,10 @@ export default {
 			let actionRow: action_row = {
 				type: 1,
 				components: [],
+			};
+
+			if (extra_buttons.includes(`historyLink`)) {
+				actionRow.components.push(historyLinkButton(gID));
 			};
 
 			if (extra_buttons.includes(`DB`)) {
