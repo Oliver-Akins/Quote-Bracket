@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env sh
 
 # abort on errors
 set -e
@@ -10,7 +10,7 @@ npm run build
 cd dist
 
 # if you are deploying to a custom domain
-# echo 'oliver.akins.me' > CNAME
+# echo 'www.example.com' > CNAME
 
 git init
 git add -A
@@ -20,6 +20,6 @@ git commit -m 'deploy'
 # git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git master
 
 # if you are deploying to https://<USERNAME>.github.io/<REPO>
-git push -f git@github.com:Oliver-Akins/Quote-Bracket.git rewrite:gh-pages
+git push -f git@github.com:Oliver-Akins/Quote-Bracket.git master:gh-pages
 
 cd -
