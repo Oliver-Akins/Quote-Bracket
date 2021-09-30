@@ -9,6 +9,7 @@ interface channel_config {
 	show_win_streak?: boolean;
 	extra_buttons?: string[];
 	tie_reminder: "channel" | "thread" | "thread_no_jump_link";
+	history_site: boolean;
 }
 
 interface config {
