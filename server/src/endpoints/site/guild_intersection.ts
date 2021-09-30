@@ -14,6 +14,12 @@ export default {
 		let registeredGuilds = [];
 
 		for (var gid in config.guilds) {
+
+			// Don't intersect with guilds that have the history site disabled
+			if (!config.guilds[gid].history_site) {
+				continue;
+			}
+
 			if (userGuilds.includes(gid)) {
 				registeredGuilds.push(gid);
 			};
