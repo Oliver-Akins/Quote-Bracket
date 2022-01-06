@@ -153,7 +153,7 @@ export default {
 			this.updateQuery();
 		},
 		resetGuild() {
-			history.replaceState(null, null, `/`);
+			window.location.search = "";
 
 			this.$emit(`set-guild`, null);
 			this.$emit(`change-state`, `login`);
