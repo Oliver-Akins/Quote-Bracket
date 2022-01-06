@@ -13,6 +13,10 @@
 			>
 				Login With Discord
 			</button>
+			<!--
+			Hidden because for some reason Vue isn't actually being able to
+			detect the guild ID in any case except for on the dev server and I
+			have no idea why. So I'm just removing it for now.
 			<br>
 			<button
 				@click.stop="handleGuildID"
@@ -20,6 +24,7 @@
 			>
 				Enter a Server ID
 			</button>
+			-->
 		</div>
 	</div>
 </template>
