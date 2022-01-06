@@ -12,14 +12,17 @@ interface bracket_data {
 	users: { [index: string]: number };
 }
 
+interface channel_data {
+	version: 2,
+	webhook: {
+		id: string;
+		token: string;
+	};
+	bracket: bracket_data;
+}
+
 interface database {
-	[index: string]: {
-		webhook: {
-			id: string;
-			token: string;
-		};
-		bracket: bracket_data;
-	}
+	[index: string]: channel_data;
 }
 
 interface bracket_history {
