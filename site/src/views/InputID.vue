@@ -22,7 +22,7 @@
 						type="text"
 						name="Server ID"
 						id="server-id"
-						v-model="guildID"
+						v-model="guild_id"
 					>
 				</div>
 				<div
@@ -38,7 +38,7 @@
 						Cancel
 					</button>
 					<button
-						v-if="guildID && !hasError"
+						v-if="guild_id && !hasError"
 						@click.stop="loadHistory"
 					>
 						Load History
@@ -52,11 +52,11 @@
 <script>
 export default {
 	data() {return {
-		guildID: ``,
+		guild_id: ``,
 	}},
 	computed: {
 		hasError() {
-			return this.guildID.match(/[^0-9]/g) != null;
+			return this.guild_id.match(/[^0-9]/g) != null;
 		},
 	},
 	methods: {
@@ -64,7 +64,7 @@ export default {
 			this.$emit(`change-state`, `login`);
 		},
 		loadHistory() {
-			this.$emit(`set-guild`, this.guildID);
+			this.$emit(`set-guild`, this.guild_id);
 			this.$emit(`change-state`, `view-history`);
 		},
 	},
